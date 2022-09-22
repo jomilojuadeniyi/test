@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>voice</title>
+    <link rel="stylesheet" href="voice.css">
+    <script src="voice.js">
+        const btn = document.getElementById('btn');
+
+        const speechrecognition = window.speechrecognition || window.webkitspeechrecognition;
+        const recognition = new speechrecognition();
+
+        recognition.onstart = function() {
+            console.log('you can speaknow !!!');
+        }
+        recognition.onresult = function(event) {
+            var text = event.results[0][0].transcript
+            console.log(text)
+            document.getElementById('result').innerHTML = text;
+            Read(text);
+        }
+
+        function read(text) {
+            var speech = new SpeechSynthesisUtterance()
+            speech.text = text;
+            if (text.includes('time'))
+                speech.text = 'it is' + new Date.getHours() + "" + new Date().getMinutes() + 'right'
+            else if (text.includes('my birthday'))
+                speech.text = 'Do you think you\'re famous! how whould i know your birthday';
+
+            else if (text.includes('love me'))
+                speech.text = 'sorry but i think we are better biegning friends';
+            window.speechSynthesis.speak(speech);
+
+        }
+    </script>
+    <script></script>
+</head>
+
+<body>
+    <button id="btn" onclick="recognition.start">record</button>
+    <h1 id="result"></h1>
+</body>
+
+</html>
